@@ -157,3 +157,12 @@ project("service_user") {
         compileOnly "${javaxServlet}"
     }
 }
+
+
+project("service_trade") {
+    dependencies {
+
+
+        compileOnly "${javaxServlet}"
+    }
+}

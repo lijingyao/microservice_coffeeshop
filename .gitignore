@@ -8,9 +8,12 @@
 
 .idea/
 target/
+classes/
 .settings/
 .project/
 .gradle/
 *build/
-service_item/out/
-service_user/out/
+out
+service_item/src/test/
+service_trade/src/test/
+service_user/src/test/
