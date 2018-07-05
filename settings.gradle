@@ -1,3 +1,4 @@
 include 'service_user'
 include 'service_item'
+include 'service_trade'
 

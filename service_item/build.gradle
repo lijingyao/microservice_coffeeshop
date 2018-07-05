@@ -1,9 +1,7 @@
-//http://localhost:8081/repository/dockerrepo/
-//192.168.99.107:5000
 task buildDocker(type: Docker, dependsOn: build) {
 
-    tagVersion = "1.0.5"
-    applicationName = "you"
+    tagVersion = "1.0.0"
+    applicationName = "item"
     tag = "localhost:5000/${applicationName}"
     push = true
     dockerfile = ('../docker/Dockerfile')

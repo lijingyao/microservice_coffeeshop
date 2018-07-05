@@ -1,7 +1,7 @@
 task buildDocker(type: Docker, dependsOn: build) {
 
     tagVersion = "1.0.0"
-    applicationName = "user"
+    applicationName = "trade"
     tag = "localhost:5000/${applicationName}"
     push = true
     dockerfile = ('../docker/Dockerfile')
