@@ -1,0 +1,17 @@
+//http://localhost:8081/repository/dockerrepo/
+//192.168.99.107:5000
+task buildDocker(type: Docker, dependsOn: build) {
+
+    tagVersion = "1.0.5"
+    applicationName = "you"
+    tag = "localhost:5000/${applicationName}"
+    push = true
+    dockerfile = ('../docker/Dockerfile')
+    doFirst {
+        copy {
+            from jar
+            rename { 'app.jar' }
+            into stageDir
+        }
+    }
+}

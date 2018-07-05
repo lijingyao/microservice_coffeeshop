@@ -1,0 +1,159 @@
+apply plugin: 'idea'
+
+buildscript {
+    repositories {
+        mavenLocal()
+        mavenCentral()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:1.5.3.RELEASE")
+        classpath('se.transmode.gradle:gradle-docker:1.2')
+    }
+}
+idea {
+    project {
+        jdkName = '1.8'
+        languageLevel = '1.8'
+        vcs = 'Git'
+    }
+    module {
+        // if you hate browsing Javadoc
+        downloadJavadoc = false
+
+        // and love reading sources :)
+        downloadSources = true
+    }
+}
+
+configure(allprojects) { project ->
+
+    group = "com.lijingyao.microservice.coffee"
+    version = "1.0.0-SNAPSHOT"
+    ext.dockerGroup = "microservice"
+    ext.dockerModule = true
+
+
+    ext.springVersion = "4.3.8.RELEASE"
+    ext.springBootVersion = "1.5.3.RELEASE"
+    ext.slf4jVersion = "1.7.21"
+
+
+    ext.springBeans = "org.springframework:spring-beans:${springVersion}"
+    ext.springCore = "org.springframework:spring-core:${springVersion}"
+    ext.springContext = "org.springframework:spring-context:${springVersion}"
+    ext.springExpression = "org.springframework:spring-expression:${springVersion}"
+    ext.springWeb = "org.springframework:spring-web:${springVersion}"
+    ext.springWebMvc = "org.springframework:spring-webmvc:${springVersion}"
+    ext.springTest = "org.springframework:spring-test:${springVersion}"
+    ext.springOrm = "org.springframework:spring-orm:${springVersion}"
+
+
+    ext.springBootAutoconfigure = "org.springframework.boot:spring-boot-autoconfigure"
+    ext.springBoot = "org.springframework.boot:spring-boot"
+    ext.springBootStart = "org.springframework.boot:spring-boot-starter"
+    ext.springBootStartTomcat = "org.springframework.boot:spring-boot-starter-tomcat"
+    ext.springBootStartWeb = "org.springframework.boot:spring-boot-starter-web"
+    ext.springBootStartAop = "org.springframework.boot:spring-boot-starter-aop"
+    ext.springBootStartJpa = "org.springframework.boot:spring-boot-starter-data-jpa:${springBootVersion}"
+
+
+    ext.commonsLang3 = "org.apache.commons:commons-lang3:3.4"
+    ext.commonsIo = "commons-io:commons-io:2.5"
+    ext.commonsCodec = "commons-codec:commons-codec:1.10"
+    ext.commonsLonging = "commons-logging:commons-logging:1.2"
+
+    ext.javaxServlet = "javax.servlet:javax.servlet-api:3.1.0"
+    ext.slf4jApi = "org.slf4j:slf4j-api:${slf4jVersion}"
+
+
+    ext.hibernateJpa = "org.hibernate.javax.persistence:hibernate-jpa-2.1-api:1.0.0.Final"
+    ext.hibernateJava8 = "org.hibernate:hibernate-java8:5.0.9.Final"
+    ext.mysql = "mysql:mysql-connector-java:5.1.39"
+
+
+}
+
+subprojects {
+    apply plugin: 'java'
+    apply plugin: 'spring-boot'
+    apply plugin: 'maven'
+    apply plugin: 'docker'
+
+
+    sourceCompatibility = 1.8
+    targetCompatibility = 1.8
+
+    compileJava.options.encoding = "UTF-8"
+
+
+
+    tasks.withType(org.gradle.api.tasks.compile.JavaCompile) {
+        options.encoding = "UTF-8"
+    }
+
+    task dockerBuild(dependsOn: ['install'])
+
+
+    task sourcesJar(type: Jar, dependsOn: classes) {
+        classifier = 'sources'
+        from sourceSets.main.allSource
+    }
+
+    repositories {
+        mavenLocal()
+        mavenCentral()
+    }
+    dependencies {
+
+        compile "${springBeans}"
+        compile "${springCore}"
+        compile "${springContext}"
+        compile "${springExpression}"
+        compile "${springWeb}"
+        compile "${springWebMvc}"
+        compile "${springTest}"
+        compile "${springOrm}"
+
+
+
+        compile "${springBootAutoconfigure}"
+        compile "${springBoot}"
+        compile "${springBootStart}"
+        compile "${springBootStartTomcat}"
+        compile "${springBootStartWeb}"
+        compile "${springBootStartAop}"
+        compile "${springBootStartJpa}"
+
+
+        compile "${slf4jApi}"
+        compile "${commonsLang3}"
+        compile "${commonsIo}"
+
+        compile "${commonsLonging}"
+        compile "${commonsCodec}"
+
+
+        compile "${hibernateJpa}"
+        compile "${hibernateJava8}"
+        compile "${mysql}"
+
+
+    }
+
+}
+
+project("service_item") {
+    dependencies {
+
+
+        compileOnly "${javaxServlet}"
+    }
+}
+
+project("service_user") {
+    dependencies {
+
+
+        compileOnly "${javaxServlet}"
+    }
+}
