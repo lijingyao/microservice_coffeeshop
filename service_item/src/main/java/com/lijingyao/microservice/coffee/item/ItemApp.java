@@ -1,5 +1,6 @@
 package com.lijingyao.microservice.coffee.item;
 
+import com.lijingyao.microservice.coffee.base.BaseApp;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
@@ -9,10 +10,10 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
  */
 @EnableTransactionManagement
 @SpringBootApplication
-public class StatusApp {
+public class ItemApp {
 
     public static void main(String[] args) {
-        SpringApplication.run(StatusApp.class, args);
+        SpringApplication.run(new Class[]{ItemApp.class, BaseApp.class}, args);
     }
 
 

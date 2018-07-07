@@ -142,10 +142,36 @@ subprojects {
 
 }
 
-project("service_item") {
+project("service_base") {
     dependencies {
 
 
+        compile "${commonsLang3}"
+        compile "${mysql}"
+        compile "${hibernateJava8}"
+        compile "${hibernateJpa}"
+        compile "${slf4jApi}"
+
+
+        compile "${springContext}"
+        compile "${springWeb}"
+        compile "${springBootStartWeb}"
+        compile "${springBootStartJpa}"
+        compile "${springBootStartTomcat}"
+        compile "${springBootStartAop}"
+        compile "${springBootAutoconfigure}"
+
+
+        compile "${javaxServlet}"
+
+    }
+}
+
+
+project("service_item") {
+    dependencies {
+
+        compile project(":service_base")
         compileOnly "${javaxServlet}"
     }
 }
@@ -153,7 +179,7 @@ project("service_item") {
 project("service_user") {
     dependencies {
 
-
+        compile project(":service_base")
         compileOnly "${javaxServlet}"
     }
 }
@@ -161,8 +187,7 @@ project("service_user") {
 
 project("service_trade") {
     dependencies {
-
-
+        compile project(":service_base")
         compileOnly "${javaxServlet}"
     }
 }

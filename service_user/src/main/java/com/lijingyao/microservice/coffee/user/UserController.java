@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * Created by lijingyao on 2017/2/18 19:42.
+ * Created by lijingyao on 2018/7/7 14:11.
  */
 @RestController
 @RequestMapping("/users")
@@ -15,13 +15,10 @@ public class UserController {
 
 
 
-    /**
-     * 获取全部banner地址
-     * @return
-     */
+
     @RequestMapping(value = "/users",method = {RequestMethod.GET})
     public ResponseEntity getUser() {
-        return new ResponseEntity("sss", HttpStatus.OK);
+        return new ResponseEntity("", HttpStatus.OK);
     }
 
 

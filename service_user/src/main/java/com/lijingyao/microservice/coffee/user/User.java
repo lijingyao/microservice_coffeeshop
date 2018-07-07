@@ -1,11 +1,8 @@
 package com.lijingyao.microservice.coffee.user;
 
-import org.hibernate.annotations.Type;
-
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
-import java.util.UUID;
 
 /**
  * Created by lijingyao on 2018/7/5 14:52.
@@ -32,9 +29,19 @@ public class User {
     @Column(name = "nickname", length = 64)
     private String nickName;
 
-    @NotNull
-    @Type(type = "uuid-char")
-    private UUID uuid;
+
+    @Column(name = "mobile_phone", length = 32)
+    private String mobilePhone;
+
+
+
+    public String getMobilePhone() {
+        return mobilePhone;
+    }
+
+    public void setMobilePhone(String mobilePhone) {
+        this.mobilePhone = mobilePhone;
+    }
 
     public Date getUtcCreate() {
         return utcCreate;
@@ -68,11 +75,5 @@ public class User {
         this.nickName = nickName;
     }
 
-    public UUID getUuid() {
-        return uuid;
-    }
 
-    public void setUuid(UUID uuid) {
-        this.uuid = uuid;
-    }
 }
