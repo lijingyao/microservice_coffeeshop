@@ -7,8 +7,8 @@ import java.util.Date;
  * Created by lijingyao on 2017/11/9 15:18.
  */
 @Entity
-@Table(name = "coffee_order")
-public class CoffeeOrder {
+@Table(name = "trade_order")
+public class TradeOrder {
 
 
     @Column(name = "utc_create")

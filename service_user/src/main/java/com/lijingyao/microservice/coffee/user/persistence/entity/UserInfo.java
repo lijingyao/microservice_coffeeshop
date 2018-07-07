@@ -1,4 +1,4 @@
-package com.lijingyao.microservice.coffee.user;
+package com.lijingyao.microservice.coffee.user.persistence.entity;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -9,7 +9,7 @@ import java.util.Date;
  */
 @Entity
 @Table(name = "user_info")
-public class User {
+public class UserInfo {
 
     @Column(name = "utc_create")
     private Date utcCreate; // 创建时间
