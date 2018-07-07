@@ -17,3 +17,4 @@ out
 service_item/src/test/
 service_trade/src/test/
 service_user/src/test/
+service_base/src/test/
