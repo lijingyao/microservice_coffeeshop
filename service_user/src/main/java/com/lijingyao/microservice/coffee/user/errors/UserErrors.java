@@ -8,8 +8,8 @@ import com.lijingyao.microservice.coffee.base.rest.Errors;
  */
 public class UserErrors {
 
-    public static Errors USER_REGISTER_INFO_NULL = new Errors(101,"用户注册信息为空");
-    public static Errors USER_INFO_NOT_EXIST = new Errors(102,"用户信息不存在");
+    public static Errors USER_REGISTER_INFO_NULL = new Errors(10001,"用户注册信息为空");
+    public static Errors USER_INFO_NOT_EXIST = new Errors(10002,"用户信息不存在");
 
 
 

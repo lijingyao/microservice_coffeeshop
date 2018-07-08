@@ -8,11 +8,11 @@ import com.lijingyao.microservice.coffee.base.rest.Errors;
  */
 public class ItemErrors {
 
-    public static Errors ITEM_CREATE_INFO_NULL = new Errors(201,"商品添加信息为空");
+    public static Errors ITEM_CREATE_INFO_NULL = new Errors(20001,"商品添加信息为空");
 
-    public static Errors ITEM_INFO_NOT_EXIST = new Errors(202,"商品信息不存在");
+    public static Errors ITEM_INFO_NOT_EXIST = new Errors(20002,"商品信息不存在");
 
-    public static Errors CATEGORY_NOT_EXIST = new Errors(203,"添加商品的类目信息不存在");
+    public static Errors CATEGORY_NOT_EXIST = new Errors(20003,"添加商品的类目信息不存在");
 
 
 
