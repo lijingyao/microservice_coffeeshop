@@ -15,9 +15,7 @@ import javax.validation.constraints.NotNull;
 public class UserInfo extends UtcTimeLongIdEntity {
 
 
-    /**
-     * Í«≥∆
-     */
+
     @NotNull
     @Column(name = "nickname", length = 64)
     private String nickName;

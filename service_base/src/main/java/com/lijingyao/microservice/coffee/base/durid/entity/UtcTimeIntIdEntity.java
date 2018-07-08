@@ -15,11 +15,11 @@ public class UtcTimeIntIdEntity extends IntIdEntity {
 
     @Column(name = "utc_create")
     @Convert(converter = EntityInstantConverter.class)
-    private Instant utcCreate; // 创建时间
+    private Instant utcCreate;
 
     @Column(name = "utc_modified")
     @Convert(converter = EntityInstantConverter.class)
-    private Instant utcModified; // 修改时间
+    private Instant utcModified;
 
     public void setUtcCreate(Instant utcCreate) {
         this.utcCreate = utcCreate;
