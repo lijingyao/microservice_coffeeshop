@@ -7,10 +7,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * 用户基础信息的资源
@@ -33,14 +30,14 @@ public class UserController {
      * @return
      */
     @RequestMapping(value = "/register", method = {RequestMethod.POST})
-    public ResponseEntity registedNewUser(@RequestBody UserRegisterDTO registerDTO) {
-        return new ResponseEntity(userService.registedNewUser(registerDTO), HttpStatus.OK);
+    public ResponseEntity registeredNewUser(@RequestBody UserRegisterDTO registerDTO) {
+        return new ResponseEntity(userService.registeredNewUser(registerDTO), HttpStatus.OK);
     }
 
 
     @RequestMapping(value = "/{id}",method = {RequestMethod.GET})
-    public ResponseEntity getUser() {
-        return new ResponseEntity("", HttpStatus.OK);
+    public ResponseEntity getUser(@PathVariable("id")Long id) {
+        return new ResponseEntity(userService.getUser(id), HttpStatus.OK);
     }
 
 

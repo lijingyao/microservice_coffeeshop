@@ -1,4 +1,4 @@
-package com.lijingyao.microservice.coffee.template;
+package com.lijingyao.microservice.coffee.base.rest;
 
 import org.apache.commons.lang3.StringUtils;
 

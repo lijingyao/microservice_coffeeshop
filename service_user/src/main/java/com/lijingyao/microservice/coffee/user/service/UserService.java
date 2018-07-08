@@ -1,6 +1,7 @@
 package com.lijingyao.microservice.coffee.user.service;
 
-import com.lijingyao.microservice.coffee.template.ServiceResult;
+import com.lijingyao.microservice.coffee.base.rest.BaseService;
+import com.lijingyao.microservice.coffee.base.rest.ServiceResult;
 import com.lijingyao.microservice.coffee.template.user.UserDTO;
 import com.lijingyao.microservice.coffee.template.user.UserRegisterDTO;
 import com.lijingyao.microservice.coffee.user.errors.UserErrors;
@@ -18,7 +19,7 @@ import java.util.Optional;
  * Created by lijingyao on 2017/1/3 22:58.
  */
 @Service
-public class UserService {
+public class UserService extends BaseService {
 
     private static final Logger logger = LoggerFactory.getLogger(UserService.class);
 
@@ -29,8 +30,8 @@ public class UserService {
     private UserAssembler userAssembler;
 
 
-    public ServiceResult<UserDTO> registedNewUser(UserRegisterDTO userRegisterDTO) {
-        ServiceResult<UserDTO> result = new ServiceResult<>();
+    public ServiceResult<UserDTO> registeredNewUser(UserRegisterDTO userRegisterDTO) {
+        ServiceResult<UserDTO> result = getResult();
 
         Optional<UserInfo> userInfoOps = userAssembler.assembleUserInfo(userRegisterDTO);
 
@@ -46,5 +47,17 @@ public class UserService {
     }
 
 
+    public ServiceResult<UserDTO> getUser(Long id) {
+        ServiceResult<UserDTO> result = getResult();
+
+        UserInfo userInfo = userRepository.getOne(id);
+        if (userInfo == null) {
+            return result.setErrors(UserErrors.USER_INFO_NOT_EXIST);
+        }
+
+        UserDTO userDTO = userAssembler.assembleUserDTO(userInfo);
+
+        return result.setResult(userDTO);
+    }
 }
 
