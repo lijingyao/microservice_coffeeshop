@@ -32,7 +32,7 @@ public class UserAssembler {
 
         UserDTO userDTO = new UserDTO();
         userDTOCopier.copy(userInfo, userDTO, null);
-        userDTO.setRegisteredTime(userInfo.getUtcCreate().getTime());
+        userDTO.setRegisteredTime(userInfo.getUtcCreate().toEpochMilli());
         userDTO.setUserId(userInfo.getId());
         return userDTO;
 
