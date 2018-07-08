@@ -1,7 +1,7 @@
 package com.lijingyao.microservice.coffee.user.restapi.assemblers;
 
-import com.lijingyao.microservice.coffee.template.user.UserDTO;
-import com.lijingyao.microservice.coffee.template.user.UserRegisterDTO;
+import com.lijingyao.microservice.coffee.template.users.UserDTO;
+import com.lijingyao.microservice.coffee.template.users.UserRegisterDTO;
 import com.lijingyao.microservice.coffee.user.persistence.entity.UserInfo;
 import org.springframework.cglib.beans.BeanCopier;
 import org.springframework.stereotype.Component;

@@ -2,8 +2,8 @@ package com.lijingyao.microservice.coffee.user.service;
 
 import com.lijingyao.microservice.coffee.base.rest.BaseService;
 import com.lijingyao.microservice.coffee.base.rest.ServiceResult;
-import com.lijingyao.microservice.coffee.template.user.UserDTO;
-import com.lijingyao.microservice.coffee.template.user.UserRegisterDTO;
+import com.lijingyao.microservice.coffee.template.users.UserDTO;
+import com.lijingyao.microservice.coffee.template.users.UserRegisterDTO;
 import com.lijingyao.microservice.coffee.user.errors.UserErrors;
 import com.lijingyao.microservice.coffee.user.persistence.entity.UserInfo;
 import com.lijingyao.microservice.coffee.user.persistence.repository.UserRepository;

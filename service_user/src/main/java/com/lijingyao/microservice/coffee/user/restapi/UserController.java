@@ -1,6 +1,6 @@
 package com.lijingyao.microservice.coffee.user.restapi;
 
-import com.lijingyao.microservice.coffee.template.user.UserRegisterDTO;
+import com.lijingyao.microservice.coffee.template.users.UserRegisterDTO;
 import com.lijingyao.microservice.coffee.user.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

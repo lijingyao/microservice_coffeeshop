@@ -1,4 +1,4 @@
-package com.lijingyao.microservice.coffee.template.user;
+package com.lijingyao.microservice.coffee.template.users;
 
 /**
  * Created by lijingyao on 2018/7/8 19:44.
