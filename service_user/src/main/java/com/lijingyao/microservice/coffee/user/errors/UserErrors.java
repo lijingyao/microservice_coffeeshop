@@ -8,8 +8,8 @@ import com.lijingyao.microservice.coffee.base.rest.Errors;
  */
 public class UserErrors {
 
-    public static Errors USER_REGISTER_INFO_NULL = new Errors(101,"ÓÃ»§×¢²áĞÅÏ¢Îª¿Õ");
-    public static Errors USER_INFO_NOT_EXIST = new Errors(102,"ÓÃ»§ĞÅÏ¢²»´æÔÚ");
+    public static Errors USER_REGISTER_INFO_NULL = new Errors(101,"ç”¨æˆ·æ³¨å†Œä¿¡æ¯ä¸ºç©º");
+    public static Errors USER_INFO_NOT_EXIST = new Errors(102,"ç”¨æˆ·ä¿¡æ¯ä¸å­˜åœ¨");
 
 
 
