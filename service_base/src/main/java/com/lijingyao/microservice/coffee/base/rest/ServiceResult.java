@@ -20,6 +20,8 @@ public class ServiceResult<T> implements Serializable {
     public ServiceResult() {
     }
 
+
+
     public Errors getErrors() {
         return errors;
     }

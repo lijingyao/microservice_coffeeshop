@@ -1,4 +1,4 @@
-package com.lijingyao.microservice.coffee.trade;
+package com.lijingyao.microservice.coffee.trade.service;
 
 import com.lijingyao.microservice.coffee.base.rest.BaseService;
 import com.lijingyao.microservice.coffee.trade.persistence.repository.OrderRepository;
