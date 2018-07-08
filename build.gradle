@@ -64,6 +64,7 @@ configure(allprojects) { project ->
 
     ext.javaxServlet = "javax.servlet:javax.servlet-api:3.1.0"
     ext.slf4jApi = "org.slf4j:slf4j-api:${slf4jVersion}"
+    ext.fastjson = "com.alibaba:fastjson:1.2.15"
 
 
     ext.hibernateJpa = "org.hibernate.javax.persistence:hibernate-jpa-2.1-api:1.0.0.Final"
@@ -144,7 +145,7 @@ subprojects {
 
 project("service_base") {
     dependencies {
-
+        compile project(":service_dto")
 
         compile "${commonsLang3}"
         compile "${mysql}"
@@ -167,6 +168,11 @@ project("service_base") {
     }
 }
 
+project("service_dto") {
+    dependencies {
+        compile "${fastjson}"
+    }
+}
 
 project("service_item") {
     dependencies {

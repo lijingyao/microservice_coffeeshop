@@ -1,0 +1,11 @@
+uploadArchives {
+    repositories {
+        maven {
+            credentials {
+                username "admin"
+                password "admin123"
+            }
+            url "http://localhost:32768/nexus/content/repositories/thirdparty/"
+        }
+    }
+}
