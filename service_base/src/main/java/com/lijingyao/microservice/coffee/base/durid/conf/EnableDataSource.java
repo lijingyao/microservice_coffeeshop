@@ -1,4 +1,4 @@
-package com.lijingyao.microservice.coffee.base.conf;
+package com.lijingyao.microservice.coffee.base.durid.conf;
 
 import org.springframework.context.annotation.Import;
 

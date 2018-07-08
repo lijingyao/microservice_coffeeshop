@@ -1,26 +1,19 @@
 package com.lijingyao.microservice.coffee.user.persistence.entity;
 
-import javax.persistence.*;
+import com.lijingyao.microservice.coffee.base.durid.entity.UtcTimeLongIdEntity;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
-import java.util.Date;
 
 /**
  * Created by lijingyao on 2018/7/5 14:52.
  */
 @Entity
 @Table(name = "user_info")
-public class UserInfo {
+public class UserInfo extends UtcTimeLongIdEntity {
 
-    @Column(name = "utc_create")
-    private Date utcCreate; // 创建时间
-
-    @Column(name = "utc_modified")
-    private Date utcModified; // 修改时间
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id")
-    private Long id;
 
     /**
      * 昵称
@@ -34,7 +27,6 @@ public class UserInfo {
     private String mobilePhone;
 
 
-
     public String getMobilePhone() {
         return mobilePhone;
     }
@@ -43,29 +35,6 @@ public class UserInfo {
         this.mobilePhone = mobilePhone;
     }
 
-    public Date getUtcCreate() {
-        return utcCreate;
-    }
-
-    public void setUtcCreate(Date utcCreate) {
-        this.utcCreate = utcCreate;
-    }
-
-    public Date getUtcModified() {
-        return utcModified;
-    }
-
-    public void setUtcModified(Date utcModified) {
-        this.utcModified = utcModified;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public String getNickName() {
         return nickName;

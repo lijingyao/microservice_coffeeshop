@@ -1,4 +1,4 @@
-package com.lijingyao.microservice.coffee.user.config;
+package com.lijingyao.microservice.coffee.base.durid.conf;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -8,7 +8,7 @@ import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import javax.sql.DataSource;
 
 /**
- * Created by lijingyao on 2017/11/28 20:04.
+ * Created by lijingyao on 2018/7/7 12:50.
  */
 @Configuration
 public class DataSourceConfig {

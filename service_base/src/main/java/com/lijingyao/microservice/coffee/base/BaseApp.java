@@ -1,6 +1,6 @@
 package com.lijingyao.microservice.coffee.base;
 
-import com.lijingyao.microservice.coffee.base.conf.EnableDataSource;
+import com.lijingyao.microservice.coffee.base.durid.conf.EnableDataSource;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 /**

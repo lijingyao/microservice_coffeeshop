@@ -1,5 +1,7 @@
 package com.lijingyao.microservice.coffee.template;
 
+import org.apache.commons.lang3.StringUtils;
+
 import java.io.Serializable;
 
 /**
@@ -11,48 +13,50 @@ public class ServiceResult<T> implements Serializable {
     private T result;
 
     private String message;
-    private Integer errorCode;
+
+    private Errors errors = null;
 
 
     public ServiceResult() {
+    }
+
+    public Errors getErrors() {
+        return errors;
+    }
+
+    public ServiceResult<T> setErrors(Errors errors) {
+        this.errors = errors;
+        return this;
     }
 
     public ServiceResult(T result) {
         this.result = result;
     }
 
-    public ServiceResult(Integer errorCode, String message) {
-        this.message = message;
-        this.errorCode = errorCode;
-    }
 
     public T getResult() {
         return result;
     }
 
-    public void setResult(T result) {
+    public ServiceResult<T> setResult(T result) {
         this.result = result;
+        return this;
     }
 
+
     public String getMessage() {
+        if (StringUtils.isEmpty(message) && errors != null) {
+            return errors.getComment();
+        }
         return message;
     }
 
-    public void setMessage(String message) {
+    public ServiceResult<T> setMessage(String message) {
         this.message = message;
+        return this;
     }
-
-    public Integer getErrorCode() {
-        return errorCode;
-    }
-
-    public void setErrorCode(Integer errorCode) {
-        this.errorCode = errorCode;
-    }
-
 
     public boolean isSuccess() {
-        return errorCode != null && errorCode > 0;
+        return errors == null;
     }
-
 }
