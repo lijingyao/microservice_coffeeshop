@@ -8,7 +8,14 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 /**
- * name=拿铁 ，simpleName = L ； name =焦糖玛奇朵 ，simpleName = CM
+ * cat service,controller略过，直接在db中初始化值如下：
+ * {@code
+ * insert into coffee_item.category values (1,NOW(),NOW(),'Latte','CM',L)
+ * insert into coffee_item.category values (2,NOW(),NOW(),'Caramel Macchiato','CM')
+ * }
+ *
+ * <p>
+ * name=Latte ，simpleName = L ； name =焦糖玛奇朵 ，simpleName = CM ,
  * Created by lijingyao on 2018/7/8 22:25.
  */
 @Entity
