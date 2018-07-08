@@ -50,7 +50,8 @@ public class UserService extends BaseService {
     public ServiceResult<UserDTO> getUser(Long id) {
         ServiceResult<UserDTO> result = getResult();
 
-        UserInfo userInfo = userRepository.getOne(id);
+
+        UserInfo userInfo = userRepository.findOne(id);
         if (userInfo == null) {
             return result.setErrors(UserErrors.USER_INFO_NOT_EXIST);
         }
