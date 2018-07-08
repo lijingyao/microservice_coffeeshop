@@ -10,7 +10,7 @@ import java.time.Instant;
  * Created by lijingyao on 2018/7/8 20:20.
  */
 @MappedSuperclass
-@EntityListeners({UtcTimeEntityListener.class})
+@EntityListeners({UtcTimeIntEntityListener.class})
 public class UtcTimeIntIdEntity extends IntIdEntity {
 
     @Column(name = "utc_create")
