@@ -2,6 +2,7 @@ package com.lijingyao.microservice.coffee.item.restapi;
 
 import com.lijingyao.microservice.coffee.item.service.ItemService;
 import com.lijingyao.microservice.coffee.template.items.ItemCreateDTO;
+import com.lijingyao.microservice.coffee.template.items.OrderItemDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -29,6 +30,11 @@ public class ItemController {
     @RequestMapping(value = "/{id}", method = {RequestMethod.GET})
     public ResponseEntity getItem(@PathVariable("id") Integer id) {
         return new ResponseEntity(itemService.getItem(id), HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/prices", method = {RequestMethod.POST})
+    public ResponseEntity buildItemOrderPrice(@RequestBody OrderItemDTO itemDTO) {
+        return new ResponseEntity(itemService.buildItemOrderPrice(itemDTO), HttpStatus.OK);
     }
 
 

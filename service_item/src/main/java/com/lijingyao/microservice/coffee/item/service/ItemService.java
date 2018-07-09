@@ -8,12 +8,15 @@ import com.lijingyao.microservice.coffee.item.persistence.entity.ItemInfo;
 import com.lijingyao.microservice.coffee.item.persistence.repository.CategoryRepository;
 import com.lijingyao.microservice.coffee.item.persistence.repository.ItemRepository;
 import com.lijingyao.microservice.coffee.item.restapi.assemblers.ItemAssembler;
-import com.lijingyao.microservice.coffee.template.items.ItemCreateDTO;
-import com.lijingyao.microservice.coffee.template.items.ItemDTO;
+import com.lijingyao.microservice.coffee.template.items.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
+import java.util.List;
+import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 /**
  * Created by lijingyao on 2018/7/8 22:30.
@@ -62,6 +65,28 @@ public class ItemService extends BaseService {
         ItemDTO itemDTO = itemAssembler.assembleItemDTO(info);
         result.setResult(itemDTO);
         return result;
+    }
+
+
+    public ServiceResult<OrderItemPriceDTO> buildItemOrderPrice(OrderItemDTO orderItemDTO) {
+        ServiceResult<OrderItemPriceDTO> result = getResult();
+
+        List<OrderItemDetailDTO> detailDTOS = orderItemDTO.getDetailDTOS();
+        if (CollectionUtils.isEmpty(detailDTOS)) return result.setErrors(ItemErrors.ITEM_QUERY_PARAM_NULL);
+
+        List<Integer> itemIDS = detailDTOS.stream().map(i -> i.getItemId()).collect(Collectors.toList());
+        List<ItemInfo> itemInfos = itemRepository.findAll(itemIDS);
+
+        if (CollectionUtils.isEmpty(itemInfos)) return result.setErrors(ItemErrors.ITEM_INFO_NOT_EXIST);
+
+        if(itemInfos.size() != detailDTOS.size())return result.setErrors(ItemErrors.ITEM_PART_NOT_ENOUGH);
+
+        Map<Integer, ItemInfo> itemInfoMap = itemInfos.stream().collect(Collectors.toMap(p -> p.getId(), p -> p));
+        OrderItemPriceDTO orderItemPriceDTO = new OrderItemPriceDTO();
+
+        orderItemPriceDTO.setPriceDTOS(detailDTOS.stream().map(i -> itemAssembler.assembleOrderItemPrice(i, itemInfoMap)).filter(i -> i != null).collect(Collectors.toList()));
+
+        return result.setResult(orderItemPriceDTO);
     }
 
 

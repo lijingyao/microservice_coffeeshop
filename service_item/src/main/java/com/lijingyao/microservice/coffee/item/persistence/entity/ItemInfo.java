@@ -26,9 +26,6 @@ public class ItemInfo extends UtcTimeIntIdEntity {
     @NotNull
     private Long price;
 
-    // 库存量
-    @NotNull
-    private Long quantity;
 
 
     @Column(name = "description", length = 256)
@@ -60,14 +57,6 @@ public class ItemInfo extends UtcTimeIntIdEntity {
 
     public void setPrice(Long price) {
         this.price = price;
-    }
-
-    public Long getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(Long quantity) {
-        this.quantity = quantity;
     }
 
     public String getDescription() {

@@ -14,6 +14,10 @@ public class ItemErrors {
 
     public static Errors CATEGORY_NOT_EXIST = new Errors(20003,"添加商品的类目信息不存在");
 
+    public static Errors ITEM_QUERY_PARAM_NULL = new Errors(20004,"查询商品信息参数为空");
+
+    public static Errors ITEM_PART_NOT_ENOUGH = new Errors(20005,"部分商品缺货");
+
 
 
 }

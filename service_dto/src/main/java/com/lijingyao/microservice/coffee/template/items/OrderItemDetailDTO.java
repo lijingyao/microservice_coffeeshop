@@ -12,6 +12,7 @@ public class OrderItemDetailDTO {
     // 咖啡浓度，附加
     private int espresso;
 
+
     public int getEspresso() {
         return espresso;
     }

@@ -2,11 +2,15 @@ package com.lijingyao.microservice.coffee.item.restapi.assemblers;
 
 import com.lijingyao.microservice.coffee.item.persistence.entity.Category;
 import com.lijingyao.microservice.coffee.item.persistence.entity.ItemInfo;
+import com.lijingyao.microservice.coffee.item.persistence.vo.AdditionalTasteVO;
 import com.lijingyao.microservice.coffee.template.items.ItemCreateDTO;
 import com.lijingyao.microservice.coffee.template.items.ItemDTO;
+import com.lijingyao.microservice.coffee.template.items.OrderItemDetailDTO;
+import com.lijingyao.microservice.coffee.template.items.OrderItemDetailPriceDTO;
 import org.springframework.cglib.beans.BeanCopier;
 import org.springframework.stereotype.Component;
 
+import java.util.Map;
 import java.util.Optional;
 
 /**
@@ -45,5 +49,21 @@ public class ItemAssembler {
     public ItemDTO assembleItemDTO(ItemInfo itemInfo) {
         ItemDTO itemDTO = wrapItem(itemInfo);
         return itemDTO;
+    }
+
+
+    public OrderItemDetailPriceDTO assembleOrderItemPrice(OrderItemDetailDTO i, Map<Integer, ItemInfo> itemInfoMap) {
+        OrderItemDetailPriceDTO priceDTO = new OrderItemDetailPriceDTO();
+
+        ItemInfo info = itemInfoMap.get(i.getItemId());
+        if (info == null) return null;
+
+        priceDTO.setItemId(i.getItemId());
+        priceDTO.setItemName(info.getName());
+
+        AdditionalTasteVO vo = new AdditionalTasteVO(i.getEspresso());
+        long price = info.getPrice() * i.getQuantity() + vo.additionalPrice();
+        priceDTO.setPrice(price);
+        return priceDTO;
     }
 }

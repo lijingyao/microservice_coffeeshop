@@ -14,7 +14,6 @@ public class ItemCreateDTO {
 
     private Long price;
 
-    private Long quantity;
 
     private String description;
 
@@ -43,13 +42,6 @@ public class ItemCreateDTO {
         this.price = price;
     }
 
-    public Long getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(Long quantity) {
-        this.quantity = quantity;
-    }
 
     public String getDescription() {
         return description;

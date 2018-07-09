@@ -15,8 +15,6 @@ public class ItemDTO {
 
     private Long price;
 
-    private Long quantity;
-
     private String description;
 
     public String getCatName() {
@@ -59,13 +57,6 @@ public class ItemDTO {
         this.price = price;
     }
 
-    public Long getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(Long quantity) {
-        this.quantity = quantity;
-    }
 
     public String getDescription() {
         return description;
