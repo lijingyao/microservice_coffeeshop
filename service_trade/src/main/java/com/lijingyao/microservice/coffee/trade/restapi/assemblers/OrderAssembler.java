@@ -1,7 +1,9 @@
 package com.lijingyao.microservice.coffee.trade.restapi.assemblers;
 
 import com.lijingyao.microservice.coffee.template.trade.OrderCreateDTO;
+import com.lijingyao.microservice.coffee.template.trade.OrderDTO;
 import com.lijingyao.microservice.coffee.template.trade.OrderDetailCreateDTO;
+import com.lijingyao.microservice.coffee.template.trade.OrderDetailDTO;
 import com.lijingyao.microservice.coffee.trade.persistence.entity.TradeOrder;
 import com.lijingyao.microservice.coffee.trade.persistence.entity.TradeOrderDetail;
 import org.apache.commons.lang3.StringUtils;
@@ -29,12 +31,15 @@ public class OrderAssembler {
     private static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyMMddHHmmssSS");
 
     private BeanCopier orderCreateDetailCopier = BeanCopier.create(OrderDetailCreateDTO.class, TradeOrderDetail.class, false);
+    private BeanCopier orderDetailCopier = BeanCopier.create(TradeOrderDetail.class, OrderDetailDTO.class, false);
+
 
     public TradeOrder assembleOrder(OrderCreateDTO createDTO) {
 
         TradeOrder order = new TradeOrder();
         order.setUserId(createDTO.getUserId());
         order.setOrderId(buildOrderId(createDTO.getUserId()));
+
 
         return order;
     }
@@ -61,14 +66,14 @@ public class OrderAssembler {
 
 
     public Optional<List<TradeOrderDetail>> assembleDetailOrders(OrderCreateDTO createDTO, TradeOrder order) {
-        if (createDTO != null && order != null) {
-            List<OrderDetailCreateDTO> detailCreateDTOS = createDTO.getDetails();
-            if (CollectionUtils.isEmpty(detailCreateDTOS)) {
-                return Optional.empty();
-            }
-            return Optional.of(detailCreateDTOS.stream().map(detailDTO -> assembleDetailOrder(detailDTO, order)).collect(Collectors.toList()));
+        if (createDTO == null || order == null) return Optional.empty();
+
+        List<OrderDetailCreateDTO> detailCreateDTOS = createDTO.getDetails();
+        if (CollectionUtils.isEmpty(detailCreateDTOS)) {
+            return Optional.empty();
         }
-        return Optional.empty();
+
+        return Optional.of(detailCreateDTOS.stream().map(detailDTO -> assembleDetailOrder(detailDTO, order)).collect(Collectors.toList()));
     }
 
     private TradeOrderDetail assembleDetailOrder(OrderDetailCreateDTO detailDTO, TradeOrder order) {
@@ -110,5 +115,24 @@ public class OrderAssembler {
         }
 
         return stringJoiner.toString();
+    }
+
+    public OrderDTO assembleOrderDTO(TradeOrder order, List<TradeOrderDetail> details) {
+        OrderDTO orderDTO = new OrderDTO();
+        orderDTO.setOrderId(order.getOrderId());
+        orderDTO.setTotalPrice(order.getPaymentPrice());
+        orderDTO.setCreateTime(order.getUtcCreate().toEpochMilli());
+        orderDTO.setUserId(order.getUserId());
+
+        List<OrderDetailDTO> detailDtos = details.stream().map(d -> assembleOrderDetailDTO(d)).collect(Collectors.toList());
+        orderDTO.setDetails(detailDtos);
+        return orderDTO;
+    }
+
+    private OrderDetailDTO assembleOrderDetailDTO(TradeOrderDetail detail) {
+        OrderDetailDTO detailDTO = new OrderDetailDTO();
+
+        orderDetailCopier.copy(detail, detailDTO, null);
+        return detailDTO;
     }
 }

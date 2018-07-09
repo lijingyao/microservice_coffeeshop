@@ -7,7 +7,7 @@ import com.lijingyao.microservice.coffee.base.rest.Errors;
  */
 public class TradeError {
 
-    public static Errors ITEM_NOT_EXIST = new Errors(30001,"订单商品不存在");
+    public static Errors ORDER_DETAIL_NOT_EXIST = new Errors(30001,"订单中没有商品");
     public static Errors ITEM_QUANTITY_NOT_ENOUGH = new Errors(30002,"商品库存不足，无法下单");
 
 }
