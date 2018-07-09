@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Created by lijingyao on 2018/7/8 23:33.
@@ -35,7 +36,7 @@ public class OrderService extends BaseService {
 
         TradeOrder order = orderAssembler.assembleOrder(createDTO);
 
-        List<TradeOrderDetail> orderDetails = orderAssembler.assembleDetailOrders(createDTO, order);
+        Optional<List<TradeOrderDetail>> orderDetails = orderAssembler.assembleDetailOrders(createDTO, order);
 
 
         return result;
