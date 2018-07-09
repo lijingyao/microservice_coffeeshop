@@ -11,10 +11,16 @@ import com.lijingyao.microservice.coffee.trade.persistence.repository.OrderDetai
 import com.lijingyao.microservice.coffee.trade.persistence.repository.OrderRepository;
 import com.lijingyao.microservice.coffee.trade.restapi.assemblers.OrderAssembler;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 /**
  * Created by lijingyao on 2018/7/8 23:33.
@@ -25,7 +31,7 @@ public class OrderService extends BaseService {
     @Autowired
     private OrderRepository orderRepository;
     @Autowired
-    private OrderDetailRepository detailRepository;
+    private OrderDetailRepository orderDetailRepository;
     @Autowired
     private OrderAssembler orderAssembler;
 
@@ -48,7 +54,7 @@ public class OrderService extends BaseService {
         order.setPaymentPrice(totalPrice);
 
         orderRepository.save(order);
-        detailRepository.save(details);
+        orderDetailRepository.save(details);
 
 
         OrderDTO orderDTO = orderAssembler.assembleOrderDTO(order, details);
@@ -56,11 +62,23 @@ public class OrderService extends BaseService {
     }
 
 
+    public ServiceResult<List<OrderDTO>> getNewUserOrders(Long userId, Integer newOrderSize, Integer detailOrderSize) {
+        ServiceResult<List<OrderDTO>> result = getResult();
+        Pageable pageable = new PageRequest(0, newOrderSize, new Sort(Sort.Direction.DESC, "utcCreate"));
+        List<TradeOrder> orders = orderRepository.findByUserId(userId, pageable);
 
-    public ServiceResult<List<OrderDTO>> getUserOrders(Long userId) {
+        if (CollectionUtils.isEmpty(orders)) {
+            return result.setResult(Collections.EMPTY_LIST);
+        }
+
+        List<String> orderIds = orders.stream().map(o -> o.getOrderId()).collect(Collectors.toList());
+
+        Pageable detailPageable = new PageRequest(0, detailOrderSize, new Sort(Sort.Direction.DESC, "utcCreate"));
+        List<TradeOrderDetail> details = orderDetailRepository.findByUserMainOrderId(userId,orderIds, detailPageable);
 
 
+        List<OrderDTO> orderDTOs = orders.stream().map(o -> orderAssembler.assembleOrderDTO(o, details)).collect(Collectors.toList());
 
-        return null;
+        return result.setResult(orderDTOs);
     }
 }
