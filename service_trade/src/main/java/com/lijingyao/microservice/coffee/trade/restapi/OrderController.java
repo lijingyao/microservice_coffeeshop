@@ -28,7 +28,7 @@ public class OrderController {
 
 
     @RequestMapping(value = "/users/{userId}", method = {RequestMethod.GET})
-    public ResponseEntity getItem(@PathVariable("userId") Long userId, @RequestParam("orderSize") Integer orderSize, @RequestParam("detailOrderSize") Integer detailOrderSize) {
+    public ResponseEntity getNewUserOrders(@PathVariable("userId") Long userId, @RequestParam("orderSize") Integer orderSize, @RequestParam("detailOrderSize") Integer detailOrderSize) {
         return new ResponseEntity(orderService.getNewUserOrders(userId, orderSize, detailOrderSize), HttpStatus.OK);
     }
 

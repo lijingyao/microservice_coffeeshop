@@ -28,7 +28,7 @@ idea {
 configure(allprojects) { project ->
 
     group = "com.lijingyao.microservice.coffee"
-    version = "1.0.0-SNAPSHOT"
+    version = "1.0.0"
     ext.dockerGroup = "microservice"
     ext.dockerModule = true
 
@@ -56,6 +56,7 @@ configure(allprojects) { project ->
     ext.springBootStartAop = "org.springframework.boot:spring-boot-starter-aop"
     ext.springBootStartJpa = "org.springframework.boot:spring-boot-starter-data-jpa:${springBootVersion}"
 
+    ext.springCloudEureka = "org.springframework.cloud:spring-cloud-starter-eureka"
 
     ext.commonsLang3 = "org.apache.commons:commons-lang3:3.4"
     ext.commonsIo = "commons-io:commons-io:2.5"
@@ -79,7 +80,7 @@ subprojects {
     apply plugin: 'spring-boot'
     apply plugin: 'maven'
     apply plugin: 'docker'
-
+    apply plugin: 'io.spring.dependency-management'
 
     sourceCompatibility = 1.8
     targetCompatibility = 1.8
@@ -90,6 +91,12 @@ subprojects {
 
     tasks.withType(org.gradle.api.tasks.compile.JavaCompile) {
         options.encoding = "UTF-8"
+    }
+
+    dependencyManagement {
+        imports {
+            mavenBom "org.springframework.cloud:spring-cloud-dependencies:Brixton.SR7"
+        }
     }
 
     task dockerBuild(dependsOn: ['install'])
@@ -161,6 +168,8 @@ project("service_base") {
         compile "${springBootStartTomcat}"
         compile "${springBootStartAop}"
         compile "${springBootAutoconfigure}"
+
+        compile "${springCloudEureka}"
 
 
         compile "${javaxServlet}"
