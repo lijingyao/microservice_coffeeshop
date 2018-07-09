@@ -1,13 +1,10 @@
-package com.lijingyao.microservice.coffee.template.trade;
+package com.lijingyao.microservice.coffee.template.items;
 
 /**
- * Created by lijingyao on 2018/7/9 09:53.
+ * Created by lijingyao on 2018/7/9 10:55.
  */
-public class OrderDetailDTO {
+public class OrderItemDetailPriceDTO {
 
-    private String orderId;
-
-    private String mainOrderId;
 
     private Integer itemId;
 
@@ -19,23 +16,6 @@ public class OrderDetailDTO {
 
 
     private String itemName;
-
-
-    public String getOrderId() {
-        return orderId;
-    }
-
-    public void setOrderId(String orderId) {
-        this.orderId = orderId;
-    }
-
-    public String getMainOrderId() {
-        return mainOrderId;
-    }
-
-    public void setMainOrderId(String mainOrderId) {
-        this.mainOrderId = mainOrderId;
-    }
 
     public Integer getItemId() {
         return itemId;

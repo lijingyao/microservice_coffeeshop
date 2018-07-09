@@ -40,6 +40,17 @@ public class TradeOrderDetail extends UtcTimeLongIdEntity {
     @Column(name = "item_name", length = 64)
     private String itemName;
 
+    @Column(name = "additional", length = 64)
+    private String additional;
+
+    public String getAdditional() {
+        return additional;
+    }
+
+    public void setAdditional(String additional) {
+        this.additional = additional;
+    }
+
     public String getOrderId() {
         return orderId;
     }
