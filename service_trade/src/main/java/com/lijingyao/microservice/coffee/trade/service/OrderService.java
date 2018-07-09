@@ -63,7 +63,7 @@ public class OrderService extends BaseService {
     }
 
 
-    public ServiceResult<List<OrderDTO>> getNewUserOrders(Long userId, Integer newOrderSize, Integer detailOrderSize) {
+    public ServiceResult<List<OrderDTO>> getUserNewOrders(Long userId, Integer newOrderSize, Integer detailOrderSize) {
         ServiceResult<List<OrderDTO>> result = getResult();
         Pageable pageable = new PageRequest(0, newOrderSize, new Sort(Sort.Direction.DESC, "utcCreate"));
         List<TradeOrder> orders = orderRepository.findByUserId(userId, pageable);
