@@ -20,6 +20,8 @@ public class OrderDetailDTO {
 
     private String itemName;
 
+    private String additional;
+
 
     public String getOrderId() {
         return orderId;
@@ -67,5 +69,13 @@ public class OrderDetailDTO {
 
     public void setItemName(String itemName) {
         this.itemName = itemName;
+    }
+
+    public String getAdditional() {
+        return additional;
+    }
+
+    public void setAdditional(String additional) {
+        this.additional = additional;
     }
 }

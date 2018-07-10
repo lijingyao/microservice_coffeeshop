@@ -28,7 +28,7 @@ idea {
 configure(allprojects) { project ->
 
     group = "com.lijingyao.microservice.coffee"
-    version = "1.0.0"
+    version = "0.0.1"
     ext.dockerGroup = "microservice"
     ext.dockerModule = true
 

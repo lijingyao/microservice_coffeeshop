@@ -14,7 +14,7 @@ import java.util.List;
 public interface OrderDetailRepository extends JpaRepository<TradeOrderDetail, Long> {
 
     @Query(" from TradeOrderDetail n where n.userId = (:userId) " +
-            "and (:mainOrderIds is null or n.mainOrderId in (:mainOrderIds)) " +
+            "and n.mainOrderId in (:mainOrderIds) " +
             "group by n.mainOrderId ")
     List<TradeOrderDetail> findByUserMainOrderId(@Param("userId") Long userId,@Param("mainOrderIds") List<String> mainOrderIds, Pageable pageable);
 }

@@ -4,6 +4,7 @@ import com.lijingyao.microservice.coffee.base.durid.entity.UtcTimeLongIdEntity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Index;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
@@ -11,7 +12,9 @@ import javax.validation.constraints.NotNull;
  * Created by lijingyao on 2018/7/8 22:35.
  */
 @Entity
-@Table(name = "trade_order_detail")
+@Table(name = "trade_order_detail", indexes = {
+        @Index(name = "IDX_USER_ID", columnList = "user_id"),
+        @Index(name = "IDX_MAIN_ORDER", columnList = "main_order_id")})
 public class TradeOrderDetail extends UtcTimeLongIdEntity {
 
     @NotNull
@@ -42,6 +45,7 @@ public class TradeOrderDetail extends UtcTimeLongIdEntity {
 
     @Column(name = "additional", length = 64)
     private String additional;
+
 
     public String getAdditional() {
         return additional;

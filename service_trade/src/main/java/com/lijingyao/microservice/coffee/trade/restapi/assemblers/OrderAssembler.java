@@ -30,7 +30,7 @@ public class OrderAssembler {
     public static ZoneId CHINA = ZoneId.of("Asia/Shanghai");
     private static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyMMddHHmmssSS");
 
-    private BeanCopier orderCreateDetailCopier = BeanCopier.create(OrderDetailCreateDTO.class, TradeOrderDetail.class, false);
+//    private BeanCopier orderCreateDetailCopier = BeanCopier.create(OrderDetailCreateDTO.class, TradeOrderDetail.class, false);
     private BeanCopier orderDetailCopier = BeanCopier.create(TradeOrderDetail.class, OrderDetailDTO.class, false);
 
 
@@ -79,18 +79,22 @@ public class OrderAssembler {
     private TradeOrderDetail assembleDetailOrder(OrderDetailCreateDTO detailDTO, TradeOrder order) {
         TradeOrderDetail detail = new TradeOrderDetail();
 
-        orderCreateDetailCopier.copy(detailDTO, order, null);
+        detail.setItemId(detailDTO.getItemId());
+        detail.setItemName(detailDTO.getItemName());
+        detail.setPrice(detailDTO.getPrice());
+        detail.setQuantity(detailDTO.getQuantity());
+
         detail.setOrderId(buildOrderDetailId(order.getUserId()));
         detail.setMainOrderId(order.getOrderId());
 
         detail.setUserId(order.getUserId());
-        detail.setAdditional(orderAddtionalBuilder(detailDTO));
+        detail.setAdditional(orderAdditionalBuilder(detailDTO));
 
         return detail;
 
     }
 
-    private String orderAddtionalBuilder(OrderDetailCreateDTO detailCreateDTO) {
+    private String orderAdditionalBuilder(OrderDetailCreateDTO detailCreateDTO) {
         StringJoiner stringJoiner = new StringJoiner("|");
         if (detailCreateDTO.getEspresso() > 0) {
             stringJoiner.add(detailCreateDTO.getEspresso() + "");

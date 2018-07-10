@@ -60,9 +60,9 @@ public class ItemAssembler {
 
         priceDTO.setItemId(i.getItemId());
         priceDTO.setItemName(info.getName());
-
+        priceDTO.setQuantity(i.getQuantity());
         AdditionalTasteVO vo = new AdditionalTasteVO(i.getEspresso());
-        long price = info.getPrice() * i.getQuantity() + vo.additionalPrice();
+        long price = (info.getPrice() + vo.additionalPrice()) * i.getQuantity();
         priceDTO.setPrice(price);
         return priceDTO;
     }
