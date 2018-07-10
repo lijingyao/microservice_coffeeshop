@@ -10,8 +10,8 @@
 
 主要使用的基础技术如下：        
 
-* 微服务的服务发现使用EurekaServer。 EurekaServer的Docker镜像可以从工程中下载并运行Docker命令:      
-* 微服务的数据组装、转发在API Gateway 工程中,可以去Gateway 工程中checkout代码。   
+* 微服务的服务发现使用EurekaServer。 EurekaServer的Docker镜像可以从 dockerhub 中download。     
+* 微服务的数据组装、转发在API Gateway 工程中,可以去 [API-Gateway](https://github.com/lijingyao/gateway_coffeeshop) 工程中checkout代码。   
 * 使用的工程构建工具：Gradle、Gradlew插件    
 * 存储服务：MySQL——InnoDB   
 * 涉及到的框架有：SpringMVC、SpringBoot、SpringCloud-Netflix、Hibernate、RxJava(Gateway工程中)    
