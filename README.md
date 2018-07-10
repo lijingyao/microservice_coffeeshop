@@ -57,5 +57,14 @@ docker run  -p :8080 -t localhost:5000/item:1.0.0  --name service-item
 如果不以docker容器运行，本地环境也可以直接运行每个微服务的Springboot实例。 
 
 
+## 给读者的作业   
+
+1. 用Java8 的 *Predicate* API  来实现对于入参和业务逻辑的校验。在DDD思想中，有参数的校验，也有领域模型自身逻辑的校验。
+本demo 工程没有做这两种校验。先给读者做思考，怎样有更简洁、更高内聚的方式实现最基础的校验？     
+2. 本demo中的 *AdditionalTasteVO* 中有一个DDD **值对象**的设计，关于价格计算模型，还有什么更好的方式呢？
+目前只计算了 *espresso*的附加价，读者们可以继续做更多的价格模型扩展。    
+
+ 
+
 参考资料： 
 [基于 Docker 的微服务架构实践](https://gitbook.cn/gitchat/activity/5a425b957431432eb6052297)
