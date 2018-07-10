@@ -16,7 +16,7 @@
 * 存储服务：MySQL——InnoDB   
 * 涉及到的框架有：SpringMVC、SpringBoot、SpringCloud-Netflix、Hibernate、RxJava(Gateway工程中)    
 * 服务间通信：Restful API   
-* 服务基础涉及原则：DDD(Domain-Drive Design)     
+* 服务基础涉及原则：DDD(Domain-Driven Design)     
 
 其他：
 编码：utf-8
