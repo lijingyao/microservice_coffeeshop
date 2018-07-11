@@ -64,7 +64,11 @@ docker run  -p :8080 -t localhost:5000/item:1.0.0  --name service-item
 2. 本demo中的 *AdditionalTasteVO* 中有一个DDD **值对象**的设计，关于价格计算模型，还有什么更好的方式呢？
 目前只计算了 *espresso*的附加价，读者们可以继续做更多的价格模型扩展。    
 
- 
 
-参考资料： 
+## Gitchat 课程
+
+课程地址:      
+[分布式微服务架构体系详解](https://gitbook.cn/gitchat/column/5b444ae694c0f60b4ec4a68c)
+ 
+Gitchat chat地址：  
 [基于 Docker 的微服务架构实践](https://gitbook.cn/gitchat/activity/5a425b957431432eb6052297)
