@@ -1,6 +1,7 @@
 package com.lijingyao.microservice.coffee.trade.service;
 
 import com.lijingyao.microservice.coffee.base.rest.BaseService;
+import com.lijingyao.microservice.coffee.base.rest.CommonErrors;
 import com.lijingyao.microservice.coffee.base.rest.ServiceResult;
 import com.lijingyao.microservice.coffee.template.trade.OrderCreateDTO;
 import com.lijingyao.microservice.coffee.template.trade.OrderDTO;
@@ -10,6 +11,7 @@ import com.lijingyao.microservice.coffee.trade.persistence.entity.TradeOrderDeta
 import com.lijingyao.microservice.coffee.trade.persistence.repository.OrderDetailRepository;
 import com.lijingyao.microservice.coffee.trade.persistence.repository.OrderRepository;
 import com.lijingyao.microservice.coffee.trade.restapi.assemblers.OrderAssembler;
+import com.lijingyao.microservice.coffee.trade.service.validators.OrderValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -35,15 +37,20 @@ public class OrderService extends BaseService {
     private OrderDetailRepository orderDetailRepository;
     @Autowired
     private OrderAssembler orderAssembler;
+    @Autowired
+    private OrderValidator orderValidator;
 
     @Transactional
     public ServiceResult<OrderDTO> createOrder(OrderCreateDTO createDTO) {
         ServiceResult<OrderDTO> result = getResult();
 
+        if(orderValidator.validateOrderCreateDTO().negate().test(createDTO)){
+            return result.setErrors(CommonErrors.ILLEGAL_PARAM_ERROR);
+        }
+
         TradeOrder order = orderAssembler.assembleOrder(createDTO);
 
         Optional<List<TradeOrderDetail>> orderDetailOpt = orderAssembler.assembleDetailOrders(createDTO, order);
-
 
         if (!orderDetailOpt.isPresent()) {
             return result.setErrors(TradeError.ORDER_DETAIL_NOT_EXIST);
@@ -56,7 +63,6 @@ public class OrderService extends BaseService {
 
         orderRepository.save(order);
         orderDetailRepository.save(details);
-
 
         OrderDTO orderDTO = orderAssembler.assembleOrderDTO(order, details);
         return result.setResult(orderDTO);

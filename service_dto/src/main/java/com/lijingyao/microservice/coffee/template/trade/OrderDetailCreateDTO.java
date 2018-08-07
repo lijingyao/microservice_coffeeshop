@@ -8,7 +8,7 @@ public class OrderDetailCreateDTO {
 
     private Integer itemId;
 
-    // 计算后的每个子订单接个
+    // 计算后的每个子订单价格
     private Long price;
 
     // 重量或者是数量
@@ -29,6 +29,8 @@ public class OrderDetailCreateDTO {
 
     // 咖啡因含量
     private String coffeine;
+
+
 
     public String getSugar() {
         return sugar;

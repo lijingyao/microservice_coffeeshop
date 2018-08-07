@@ -14,7 +14,6 @@ public class ItemCreateDTO {
 
     private Long price;
 
-
     private String description;
 
 
@@ -41,7 +40,6 @@ public class ItemCreateDTO {
     public void setPrice(Long price) {
         this.price = price;
     }
-
 
     public String getDescription() {
         return description;

@@ -9,9 +9,41 @@ public class OrderItemDetailDTO {
 
     private Long quantity;
 
+    // 糖分
+    private String sugar;
+
+    // 牛奶含量
+    private String milk;
+
     // 咖啡浓度，附加
     private int espresso;
 
+    // 咖啡因含量
+    private String coffeine;
+
+    public String getSugar() {
+        return sugar;
+    }
+
+    public void setSugar(String sugar) {
+        this.sugar = sugar;
+    }
+
+    public String getMilk() {
+        return milk;
+    }
+
+    public void setMilk(String milk) {
+        this.milk = milk;
+    }
+
+    public String getCoffeine() {
+        return coffeine;
+    }
+
+    public void setCoffeine(String coffeine) {
+        this.coffeine = coffeine;
+    }
 
     public int getEspresso() {
         return espresso;
@@ -36,4 +68,7 @@ public class OrderItemDetailDTO {
     public void setQuantity(Long quantity) {
         this.quantity = quantity;
     }
+
+
+
 }

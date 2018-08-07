@@ -1,6 +1,7 @@
 package com.lijingyao.microservice.coffee.user.service;
 
 import com.lijingyao.microservice.coffee.base.rest.BaseService;
+import com.lijingyao.microservice.coffee.base.rest.CommonErrors;
 import com.lijingyao.microservice.coffee.base.rest.ServiceResult;
 import com.lijingyao.microservice.coffee.template.users.UserDTO;
 import com.lijingyao.microservice.coffee.template.users.UserRegisterDTO;
@@ -8,6 +9,7 @@ import com.lijingyao.microservice.coffee.user.errors.UserErrors;
 import com.lijingyao.microservice.coffee.user.persistence.entity.UserInfo;
 import com.lijingyao.microservice.coffee.user.persistence.repository.UserRepository;
 import com.lijingyao.microservice.coffee.user.restapi.assemblers.UserAssembler;
+import com.lijingyao.microservice.coffee.user.service.validators.UserValidator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,10 +30,15 @@ public class UserService extends BaseService {
     private UserRepository userRepository;
     @Autowired
     private UserAssembler userAssembler;
-
+    @Autowired
+    private UserValidator userValidator;
 
     public ServiceResult<UserDTO> registeredNewUser(UserRegisterDTO userRegisterDTO) {
         ServiceResult<UserDTO> result = getResult();
+        // validate register info
+        if (userValidator.validateUserRegisterDTO().negate().test(userRegisterDTO)) {
+            return result.setErrors(CommonErrors.ILLEGAL_PARAM_ERROR);
+        }
 
         Optional<UserInfo> userInfoOps = userAssembler.assembleUserInfo(userRegisterDTO);
 
@@ -49,7 +56,6 @@ public class UserService extends BaseService {
 
     public ServiceResult<UserDTO> getUser(Long id) {
         ServiceResult<UserDTO> result = getResult();
-
 
         UserInfo userInfo = userRepository.findOne(id);
         if (userInfo == null) {
