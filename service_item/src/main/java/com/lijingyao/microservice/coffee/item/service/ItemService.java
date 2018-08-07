@@ -11,6 +11,8 @@ import com.lijingyao.microservice.coffee.item.persistence.repository.ItemReposit
 import com.lijingyao.microservice.coffee.item.restapi.assemblers.ItemAssembler;
 import com.lijingyao.microservice.coffee.item.service.validators.ItemValidator;
 import com.lijingyao.microservice.coffee.template.items.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
@@ -25,6 +27,8 @@ import java.util.stream.Collectors;
  */
 @Service
 public class ItemService extends BaseService {
+
+    private static final Logger logger = LoggerFactory.getLogger(ItemService.class);
 
     @Autowired
     private ItemRepository itemRepository;
@@ -74,7 +78,12 @@ public class ItemService extends BaseService {
 
         ServiceResult<OrderItemPriceDTO> result = getResult();
 
-        if (itemValidator.validateOrderItemDTO().negate().test(orderItemDTO)) {
+        try {
+            if (itemValidator.validateOrderItemDTO().negate().test(orderItemDTO)) {
+                return result.setErrors(CommonErrors.ILLEGAL_PARAM_ERROR);
+            }
+        } catch (IllegalArgumentException e) {
+            logger.error("Invalidate params of additional enums.");
             return result.setErrors(CommonErrors.ILLEGAL_PARAM_ERROR);
         }
 

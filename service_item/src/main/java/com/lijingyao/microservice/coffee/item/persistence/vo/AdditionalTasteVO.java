@@ -1,5 +1,7 @@
 package com.lijingyao.microservice.coffee.item.persistence.vo;
 
+import org.apache.commons.lang3.StringUtils;
+
 /**
  * 每杯咖啡的附加口味。属于值对象模型。
  * <p>
@@ -31,6 +33,21 @@ public final class AdditionalTasteVO {
         this.milk = milk;
         this.espresso = espresso;
         this.coffeine = coffeine;
+    }
+
+    public AdditionalTasteVO(int espresso, String milk, String sugar, String coffeine) {
+
+        if (StringUtils.isNoneEmpty(milk)) {
+            this.milk = MilkEnums.valueOf(milk);
+        }
+        if (StringUtils.isNoneEmpty(sugar)) {
+            this.sugar = SugarEnums.valueOf(sugar);
+        }
+        if (StringUtils.isNoneEmpty(coffeine)) {
+            this.coffeine = CaffeineEnum.valueOf(coffeine);
+        }
+
+        this.espresso = espresso;
     }
 
     public SugarEnums getSugar() {
@@ -72,4 +89,6 @@ public final class AdditionalTasteVO {
             return 0;
         }
     }
+
+
 }

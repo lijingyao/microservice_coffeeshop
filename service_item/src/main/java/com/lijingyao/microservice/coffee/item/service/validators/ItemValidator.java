@@ -33,7 +33,7 @@ public class ItemValidator implements BaseValidator {
                 && p.getDetailDTOS().parallelStream().allMatch(validateOrderItemDetailDTO()); // validate all item details
     }
 
-    public Predicate<OrderItemDetailDTO> validateOrderItemDetailDTO() {
+    public Predicate<OrderItemDetailDTO> validateOrderItemDetailDTO() throws IllegalArgumentException{
         return p -> p != null && validateInt().test(p.getItemId())
                 && validateLong().test(p.getQuantity())
                 && (p.getSugar() != null && SugarEnums.valueOf(p.getSugar()) != null)

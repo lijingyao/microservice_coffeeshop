@@ -3,10 +3,13 @@ package com.lijingyao.microservice.coffee.item.restapi.assemblers;
 import com.lijingyao.microservice.coffee.item.persistence.entity.Category;
 import com.lijingyao.microservice.coffee.item.persistence.entity.ItemInfo;
 import com.lijingyao.microservice.coffee.item.persistence.vo.AdditionalTasteVO;
+import com.lijingyao.microservice.coffee.item.service.manager.PriceSelector;
+import com.lijingyao.microservice.coffee.item.service.manager.PriceStrategy;
 import com.lijingyao.microservice.coffee.template.items.ItemCreateDTO;
 import com.lijingyao.microservice.coffee.template.items.ItemDTO;
 import com.lijingyao.microservice.coffee.template.items.OrderItemDetailDTO;
 import com.lijingyao.microservice.coffee.template.items.OrderItemDetailPriceDTO;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cglib.beans.BeanCopier;
 import org.springframework.stereotype.Component;
 
@@ -21,6 +24,8 @@ public class ItemAssembler {
 
     private BeanCopier itemCreateCopier = BeanCopier.create(ItemCreateDTO.class, ItemInfo.class, false);
     private BeanCopier itemDTOCopier = BeanCopier.create(ItemInfo.class, ItemDTO.class, false);
+    @Autowired
+    private PriceSelector priceSelector;
 
     public Optional<ItemInfo> assembleItemInfo(ItemCreateDTO createDTO) {
         if (null == createDTO) return Optional.empty();
@@ -61,9 +66,15 @@ public class ItemAssembler {
         priceDTO.setItemId(i.getItemId());
         priceDTO.setItemName(info.getName());
         priceDTO.setQuantity(i.getQuantity());
-        AdditionalTasteVO vo = new AdditionalTasteVO(i.getEspresso());
-        long price = (info.getPrice() + vo.additionalPrice()) * i.getQuantity();
+
+        AdditionalTasteVO vo = new AdditionalTasteVO(i.getEspresso(), i.getMilk(), i.getSugar(), i.getCoffeine());
+
+        PriceStrategy strategy = priceSelector.handleByPolicy();
+
+        long price = (info.getPrice() + strategy.calculatePrice(vo)) * i.getQuantity();
         priceDTO.setPrice(price);
         return priceDTO;
     }
+
+
 }

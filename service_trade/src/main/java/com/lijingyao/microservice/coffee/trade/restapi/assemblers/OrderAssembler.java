@@ -30,7 +30,7 @@ public class OrderAssembler {
     public static ZoneId CHINA = ZoneId.of("Asia/Shanghai");
     private static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyMMddHHmmssSS");
 
-//    private BeanCopier orderCreateDetailCopier = BeanCopier.create(OrderDetailCreateDTO.class, TradeOrderDetail.class, false);
+    //    private BeanCopier orderCreateDetailCopier = BeanCopier.create(OrderDetailCreateDTO.class, TradeOrderDetail.class, false);
     private BeanCopier orderDetailCopier = BeanCopier.create(TradeOrderDetail.class, OrderDetailDTO.class, false);
 
 
@@ -128,12 +128,14 @@ public class OrderAssembler {
         orderDTO.setCreateTime(order.getUtcCreate().toEpochMilli());
         orderDTO.setUserId(order.getUserId());
 
-        List<OrderDetailDTO> detailDtos = details.stream().map(d -> assembleOrderDetailDTO(d)).collect(Collectors.toList());
-        orderDTO.setDetails(detailDtos);
+        if (!CollectionUtils.isEmpty(details)) {
+            List<OrderDetailDTO> detailDtos = details.stream().map(d -> assembleOrderDetailDTO(d)).collect(Collectors.toList());
+            orderDTO.setDetails(detailDtos);
+        }
         return orderDTO;
     }
 
-    private OrderDetailDTO assembleOrderDetailDTO(TradeOrderDetail detail) {
+    public OrderDetailDTO assembleOrderDetailDTO(TradeOrderDetail detail) {
         OrderDetailDTO detailDTO = new OrderDetailDTO();
 
         orderDetailCopier.copy(detail, detailDTO, null);

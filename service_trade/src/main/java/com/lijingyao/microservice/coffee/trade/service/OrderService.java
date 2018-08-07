@@ -5,6 +5,7 @@ import com.lijingyao.microservice.coffee.base.rest.CommonErrors;
 import com.lijingyao.microservice.coffee.base.rest.ServiceResult;
 import com.lijingyao.microservice.coffee.template.trade.OrderCreateDTO;
 import com.lijingyao.microservice.coffee.template.trade.OrderDTO;
+import com.lijingyao.microservice.coffee.template.trade.OrderDetailDTO;
 import com.lijingyao.microservice.coffee.trade.errors.TradeError;
 import com.lijingyao.microservice.coffee.trade.persistence.entity.TradeOrder;
 import com.lijingyao.microservice.coffee.trade.persistence.entity.TradeOrderDetail;
@@ -20,6 +21,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
@@ -44,7 +46,7 @@ public class OrderService extends BaseService {
     public ServiceResult<OrderDTO> createOrder(OrderCreateDTO createDTO) {
         ServiceResult<OrderDTO> result = getResult();
 
-        if(orderValidator.validateOrderCreateDTO().negate().test(createDTO)){
+        if (orderValidator.validateOrderCreateDTO().negate().test(createDTO)) {
             return result.setErrors(CommonErrors.ILLEGAL_PARAM_ERROR);
         }
 
@@ -69,7 +71,7 @@ public class OrderService extends BaseService {
     }
 
 
-    public ServiceResult<List<OrderDTO>> getUserNewOrders(Long userId, Integer newOrderSize, Integer detailOrderSize) {
+    public ServiceResult<List<OrderDTO>> getUserNewOrders(Long userId, Integer newOrderSize) {
         ServiceResult<List<OrderDTO>> result = getResult();
         Pageable pageable = new PageRequest(0, newOrderSize, new Sort(Sort.Direction.DESC, "utcCreate"));
         List<TradeOrder> orders = orderRepository.findByUserId(userId, pageable);
@@ -78,13 +80,22 @@ public class OrderService extends BaseService {
             return result.setResult(Collections.EMPTY_LIST);
         }
 
-        List<String> orderIds = orders.stream().map(o -> o.getOrderId()).collect(Collectors.toList());
+        List<OrderDTO> orderDTOs = orders.stream().map(o -> orderAssembler.assembleOrderDTO(o,null)).collect(Collectors.toList());
 
-        Pageable detailPageable = new PageRequest(0, detailOrderSize, new Sort(Sort.Direction.DESC, "utcCreate"));
-        List<TradeOrderDetail> details = orderDetailRepository.findByUserMainOrderId(userId,orderIds, detailPageable);
+        return result.setResult(orderDTOs);
+    }
+
+    public ServiceResult<List<OrderDetailDTO>> getDetailOrders(ArrayList<String> mainOrderIds,Integer orderSize) {
+        ServiceResult<List<OrderDetailDTO>> result = getResult();
+        Pageable detailPageable = new PageRequest(0, orderSize, new Sort(Sort.Direction.DESC, "utcCreate"));
+        List<TradeOrderDetail> details = orderDetailRepository.findByMainOrderIds(mainOrderIds, detailPageable);
 
 
-        List<OrderDTO> orderDTOs = orders.stream().map(o -> orderAssembler.assembleOrderDTO(o, details)).collect(Collectors.toList());
+        if (CollectionUtils.isEmpty(details)) {
+            return result.setResult(Collections.EMPTY_LIST);
+        }
+
+        List<OrderDetailDTO> orderDTOs = details.stream().map(o -> orderAssembler.assembleOrderDetailDTO(o)).collect(Collectors.toList());
 
         return result.setResult(orderDTOs);
     }

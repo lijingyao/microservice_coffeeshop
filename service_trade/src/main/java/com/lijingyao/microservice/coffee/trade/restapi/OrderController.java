@@ -1,5 +1,6 @@
 package com.lijingyao.microservice.coffee.trade.restapi;
 
+import com.google.common.collect.Lists;
 import com.lijingyao.microservice.coffee.template.trade.OrderCreateDTO;
 import com.lijingyao.microservice.coffee.trade.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,9 +28,27 @@ public class OrderController {
     }
 
 
+    /**
+     * 获取用户最新的主订单列表
+     *
+     * @param userId
+     * @param orderSize
+     * @return
+     */
     @RequestMapping(value = "/users/{userId}", method = {RequestMethod.GET})
-    public ResponseEntity getUserNewOrders(@PathVariable("userId") Long userId, @RequestParam("orderSize") Integer orderSize, @RequestParam("detailOrderSize") Integer detailOrderSize) {
-        return new ResponseEntity(orderService.getUserNewOrders(userId, orderSize, detailOrderSize), HttpStatus.OK);
+    public ResponseEntity getUserNewOrders(@PathVariable("userId") Long userId, @RequestParam("orderSize") Integer orderSize) {
+        return new ResponseEntity(orderService.getUserNewOrders(userId, orderSize), HttpStatus.OK);
+    }
+
+    /**
+     * 根据主订单Id ,获取子订单。每个主订单只获取一个子订单。
+     *
+     * @param mainOrderIds 主订单id
+     * @return
+     */
+    @RequestMapping(value = "/details", method = {RequestMethod.GET})
+    public ResponseEntity getDetailOrders(@RequestParam("mainOrderIds") String[] mainOrderIds, @RequestParam("orderSize") Integer orderSize) {
+        return new ResponseEntity(orderService.getDetailOrders(Lists.newArrayList(mainOrderIds),orderSize), HttpStatus.OK);
     }
 
 

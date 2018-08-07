@@ -6,4 +6,6 @@ package com.lijingyao.microservice.coffee.item.persistence.vo;
 public enum SugarEnums {
 
     THREE, HALF, SEVEN, FULL
+
+
 }
