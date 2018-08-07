@@ -64,6 +64,17 @@ docker run  -p :8080 -t localhost:5000/item:1.0.0  --name service-item
 2. 本demo中的 *AdditionalTasteVO* 中有一个DDD **值对象**的设计，关于价格计算模型，还有什么更好的方式呢？
 目前只计算了 *espresso*的附加价，读者们可以继续做更多的价格模型扩展。    
 
+## 解答
+
+1. 更新代码后，主要看service 包下面多了 *validators*包，用来封装各种业务的校验器。以*UserValidator*类为例，
+主要增加了对用户注册入参的校验。过程中产生的中间业务结果，也可以用**Predicate**实现。统一的校验器可以将相似
+的逻辑抽象出来，并且减少service代码对于一般参数校验。更方便维护主领域模型的逻辑。 
+
+2. 新增的代码在service_item的 *manager*包中。**PriceSelector**相当于策略模式的situation的选择器,示例中是
+通过系统当前时间来判断和选择具体的策略。实际业务中会有更复杂的条件。示例代码中的策略分为两个，Summer,Winter。 
+不同的季节不同的咖啡附加料价格不同，通过策略模式，可以很好得解耦不同的计算模型。如果计算流程是可以复用的，那么
+还可以在策略中结合**Template**模式。
+
 
 ## Gitchat 课程
 
