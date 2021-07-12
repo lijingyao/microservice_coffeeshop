@@ -75,16 +75,3 @@ docker run  -p :8080 -t localhost:5000/item:1.0.0  --name service-item
 不同的季节不同的咖啡附加料价格不同，通过策略模式，可以很好得解耦不同的计算模型。如果计算流程是可以复用的，那么
 还可以在策略中结合**Template**模式。
 
-
-## Gitchat 课程
-
-购买课程的读者可以在读者圈提问或留言。没有购买的读者也可以在 Github 上提 Issues 一起探讨。感谢各位支持 OvO。   
- 
-课程地址:      
-[分布式微服务架构体系详解](https://gitbook.cn/gitchat/column/5b444ae694c0f60b4ec4a68c)
-  
-Gitchat chat地址：  
-[基于 Docker 的微服务架构实践](https://gitbook.cn/gitchat/activity/5a425b957431432eb6052297)
-
-
-![分布式微服务架构体系详解](https://images.gitbook.cn/618135a0-adaf-11e8-be67-898fbb02efe9)
